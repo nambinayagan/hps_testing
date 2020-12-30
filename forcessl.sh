@@ -16,15 +16,15 @@ echo $epooch
 #touch $docroot1/.htaccess
 #echo adding >> $docroot1/.htaccess
 #echo Before
-cat $docroot1/.htaccess
+#cat $docroot1/.htaccess
+#docroot2=$( $docroot1/.htaccess$epooch )
+#[ -f "$docroot1/.htaccess" ] && { mv $docroot1/.htaccess $docroot1/.htaccess"$epooch" ; move=1 ; }
+[ -f $docroot1/.htaccess ] &&  cp $docroot1/.htaccess $docroot1/.htaccess_fssl_"$epooch"
 
-[ -f "$docroot1/.htaccess" ] && { mv $docroot1/.htaccess $docroot1/.htaccess_$epooch ; move=1 ; }
-echo -e "## Start Redirection code ##" >> $docroot1/.htaccess
-echo -e \n >> $docroot1/.htaccess
-echo -e "\nHeader always set Content-Security-Policy" \""upgrade-insecure-requests;\"""\nRewriteEngine On\nRewriteCond %{HTTPS} off\nRewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]\n" >> $docroot1/.htaccess
-[[  $move -eq 1 ]]  && cat $docroot1/.htaccess_$epooch >> $docroot1/.htaccess ;
+echo -e "\n ##Start Redirection Code## \n\nHeader always set Content-Security-Policy" \""upgrade-insecure-requests;\"""\nRewriteEngine On\nRewriteCond %{HTTPS} off\nRewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]\n ##End Redirection Code##\n$( cat $docroot1/.htaccess )" > $docroot1/.htaccess
 #echo -e \n  >> $docroot1/.htaccess
 #echo After
-ls -al $docroot1/.htaccess_$epooch
+ls -al $docroot1/.htaccess*
+
 cat $docroot1/.htaccess
 #ls -al $docroot1 | grep htaccess

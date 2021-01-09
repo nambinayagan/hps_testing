@@ -10,7 +10,7 @@ domainIP2=$( cat /var/cpanel/users/${username1##*( )} | grep "IP=" | cut -d'=' -
 }
 sslchecker()
 {
-echo -e "\n"
+#echo -e "\n"
 curl --insecure -vvI https://$domain1 2>&1 | awk 'BEGIN { cert=0 } /^\* Server certificate:/ { cert=1 } /^\*/ { if (cert) print }' | grep "Let's Encrypt" > /dev/null
 #[[  $? -eq 0 ]] && { printf "%${COLUMNS}s" " " | tr " " "=" ; printf "%*s\n" $(((${#title}+$COLUMNS)/2)) "$title" ;  printf "%${COLUMNS}s" " " | tr " " "=" ; echo -e "\n" ; curl --insecure -vvI https://$domain1 2>&1 | awk 'BEGIN { cert=0 } /^\* Server certificate:/ { cert=1 } /^\*/ { if (cert) print }' ; printf "%${COLUMNS}s" " " | tr " " "=" ; } || { echo "SSL certificate is not installed for $domain1" ; printf "%${COLUMNS}s" " " | tr " " "*" ; exit 1; }
 [[  $? -eq 0 ]] && { echo -e "\e[3;4;33mIs SSL certificate installed for $domain1\e[0m: ${green}Yes${reset}" ; curl --insecure -vvI https://$domain1 2>&1 | awk 'BEGIN { cert=0 } /^\* Server certificate:/ { cert=1 } /^\*/ { if (cert) print }' ; } || { echo -e "\e[3;4;33mIs SSL certificate installed for $domain1\e[0m: ${red}No${reset}" ; exit 1; }
@@ -27,7 +27,7 @@ finddocroot()
 
         [ -z "$docroot1" ] && exit;
 }
-echo -e "\n"
+#echo -e "\n"
 COLUMNS=$(tput cols)
 red=`tput setaf 1`
 green=`tput setaf 2`                                    #Adding colours

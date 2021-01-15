@@ -40,7 +40,7 @@ title="SSL Certificate Info"
 finddocroot
 domainpointing
 sslchecker
-before="before adding of redirection code"
+before="before adding redirection code"
 checkredirection
 #echo " Document root is $docroot1 "
 epooch=$( date +'%s' )
@@ -51,5 +51,5 @@ echo -e "\n ##Start Redirection Code## \n\nHeader always set Content-Security-Po
 #ls -al $docroot1/.htaccess*
 echo -e "${green}Redirection code added successfully${reset}"
 echo -e "\e[3;4;33mNew .htaccess file with Force SSL code\e[0m: $docroot1/.htaccess"
-before="after adding of redirection code"
+before="after adding redirection code"
 checkredirection

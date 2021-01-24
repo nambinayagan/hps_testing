@@ -4,6 +4,7 @@ domainpointing()
 echo "Domain: $domain1"
 domainIP1=$( dig $domain1 +short)
 domainIP2=$( cat /var/cpanel/users/${username1##*( )} | grep "IP=" | cut -d'=' -f2 )
+statuscode=$(curl -LI $domain1 -o /dev/null -w '%{http_code}\n' -s)
 #echo -e "\n"
 #[ $domainIP1 != $domainIP2 ] && { echo "$domain1 is pointing to $domainIP1 and not to hosting server IP address $domainIP2" ; exit ; } || { echo $domain1 is pointing to hosting server IP address: $domainIP2 ; }
 [ $domainIP1 != $domainIP2 ] && { echo -e "\e[3;4;33mIs $domain1 pointing to assigned IP address\e[0m: ${red}No${reset}" ; exit ; } || { echo -e "\e[3;4;33mIs $domain1 pointing to assigned IP address\e[0m: ${green}Yes${reset}" ; }
@@ -52,4 +53,9 @@ echo -e "\n ##Start Redirection Code## \n\nHeader always set Content-Security-Po
 echo -e "${green}Redirection code added successfully${reset}"
 echo -e "\e[3;4;33mNew .htaccess file with Force SSL code\e[0m: $docroot1/.htaccess"
 before="after adding redirection code"
+#statuscode1=300
+statuscode1=$(curl -LI $domain1 -o /dev/null -w '%{http_code}\n' -s)
+#echo $statuscode $statuscode1
+#[[ $statuscode -ne $statuscode1 ]] && { echo -e "The status for the website has changed from $statuscode to $statuscode1"; }
+[[ $statuscode -ne $statuscode1 ]] && { echo -e "\e[3;4;33mFinal status code for $domain1 has changed\e[0m from ${green}$statuscode${reset} to${green} $statuscode1"${reset}; }
 checkredirection

@@ -1,7 +1,10 @@
 #!/bin/bash
+link=0
+link2=0
+
 read -p "Enter server hostname: " server
 #server=$0
-curl -s https://pulse.myorderbox.com/history_data | grep pulse.myorderbox.com | awk '{print $2}' | cut -d"'" -f2 > pulselist.txt
+curl -s https://pulse.myorderbox.com/history_data | grep pulse.myorderbox.com | grep -v "announcement" | awk '{print $2}' | cut -d"'" -f2 > pulselist.txt
 curl -s https://pulse.myorderbox.com/ | sed 's/href=/\n/g' | cut -d "'" -f 2 | grep "pulse.myorderbox.com" | grep -v "[=>]" >> pulselist.txt
 for link in $( cat pulselist.txt )
 do

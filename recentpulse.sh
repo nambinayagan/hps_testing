@@ -10,4 +10,4 @@ curl -s $link | grep $server > /dev/null
 [[  $? -eq 0 ]] && { link2=$link ; newvar=$( curl -s $link | sed 's/<\/*[^>]*>//g' | grep -A1 "Scheduled start time" ); echo $newvar ; echo "Pulse link: $link" ; }
 done
 curl -s $link2 | grep "Removal of older PHP binaries" > /dev/null
-[[  $? -eq 0 ]] && { echo "\n\n" ; echo "I see that the above given pulse link is for CPMH PHP Hard Upgrades. So you can refer to the template from below" ; echo "\n\n" ; sed -e "s|pulse_date|$datevar|g" -e "s|pulse_link|$link|g" template.txt ; }
+[[  $? -eq 0 ]] && { echo \n\n ; echo "I see that the above given pulse link is for CPMH PHP Hard Upgrades. So you can refer to the template from below" ; echo \n\n ; sed -e "s|pulse_date|$datevar|g" -e "s|pulse_link|$link|g" template.txt ; }
